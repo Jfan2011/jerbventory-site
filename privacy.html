@@ -61,15 +61,15 @@ color:var(--muted);font-size:.88rem}
 <li>App preferences and settings</li>
 </ul>
 <p>On Android this is a local database in the app's private storage. On iOS it is a local database in the app's container. Neither is transmitted to us.</p>
-<h2>Camera and photos</h2>
-<p>Jerbventory can attach a photo to a transaction or card as a memory aid.</p>
+<h2>Camera, photos, and label scanning</h2>
+<p>Jerbventory uses the camera only for local actions you choose: attaching a photo to a transaction or card on iOS, and scanning a Jerbventory QR inventory label on Android or iOS.</p>
 <ul>
-<li>Photos are stored <strong>on your device only</strong> and are never uploaded.</li>
-<li>Image metadata, including any location data the camera recorded, is <strong>stripped</strong> before the photo is saved.</li>
-<li>Photos are not analysed, recognised, priced, matched, or sent to any service.</li>
-<li>On iOS the app requests camera access only when you choose to take a photo. On Android photos are supplied through the system picker.</li>
+<li>Attached photos are stored <strong>on your device only</strong> and are never uploaded. Image metadata, including any location data the camera recorded, is <strong>stripped</strong> before the photo is saved.</li>
+<li>The QR scanner processes camera frames on the device solely to decode Jerbventory's own printed label identifiers. Frames are not saved, uploaded, used for card recognition, or sent to a catalog or pricing service.</li>
+<li>Attached photos are not analysed, recognised, priced, matched, or sent to any service.</li>
+<li>Android supplies attachment photos through the system picker. Android and iOS request camera access when you open the QR scanner; iOS also requests it when you choose to take an attachment photo.</li>
 </ul>
-<p>You can revoke camera access at any time in your device settings; the rest of the app continues to work.</p>
+<p>You can revoke camera access at any time in your device settings. Camera-based attachment and label scanning will stop working, but the rest of the app continues to work.</p>
 <h2>Network requests the app makes</h2>
 <p>Jerbventory needs internet access for one purpose: looking up card prices and card images. Those requests go to third parties we do not control:</p>
 <table><thead><tr><th>Service</th><th>Purpose</th><th>What is sent</th></tr></thead><tbody>
