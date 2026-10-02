@@ -40,16 +40,16 @@ color:var(--muted);font-size:.88rem}
 <header><a class="brand" href="./index.html">Jerbventory</a></header>
 <h1>Jerbventory Privacy Policy</h1>
 <p><strong>Effective date:</strong> August 10, 2026</p>
-<p><strong>Last updated:</strong> August 10, 2026</p>
+<p><strong>Last updated:</strong> October 1, 2026</p>
 <p><strong>Applies to:</strong> Jerbventory for iPhone/iPad and Android</p>
 <h2>The short version</h2>
-<p>Jerbventory does not collect your data. There are no accounts, no servers we control, and no analytics. Your inventory, sales, shows, photos, and financial records stay on your device unless you deliberately export them somewhere.</p>
-<p>We cannot see your data. Not because we promise not to look — because it never reaches us.</p>
+<p>Jerbventory does not collect your personal data. There are no accounts and no analytics. Your inventory, sales, shows, photos, and financial records stay on your device unless you deliberately export them somewhere.</p>
+<p>The one thing the app does talk to is our own <strong>pricing service</strong>, so that card prices can be refreshed each day. It receives an anonymous device token and the catalog identifiers of cards you track, never your records themselves. When the app first signs up for pricing, Apple or Google confirms to our service that it is the genuine app; we check that confirmation and do not keep it. To stop abuse, the service briefly uses a scrambled form of your network address, which it never stores and forgets within 24 hours. The details are in the section "Our pricing service" below.</p>
 <h2>Who we are</h2>
 <p>Jerbventory is published by Jeffrey George Afana. Contact: jafana@jerbventory.com.</p>
 <h2>What we collect</h2>
-<p><strong>Nothing.</strong></p>
-<p>Jerbventory has no user accounts, no sign-in, no telemetry, no advertising identifiers, no crash reporting, and no analytics SDK of any kind. We do not build a profile of you, and we have no mechanism to.</p>
+<p>Jerbventory has no user accounts, no sign-in, no telemetry, no advertising identifiers, no crash reporting, and no analytics SDK of any kind. We do not build a profile of you.</p>
+<p>The only data that reaches a server we operate is what the pricing service needs to work, described in "Our pricing service" below: an anonymous device token, the catalog identifiers of cards you track, a one-time confirmation from Apple or Google when the app signs up, a short-lived scrambled form of your network address used only to limit sign-up attempts, and the ordinary connection records any web server keeps.</p>
 <h2>What stays on your device</h2>
 <p>All of the following is stored locally, on your device only:</p>
 <ul>
@@ -70,8 +70,26 @@ color:var(--muted);font-size:.88rem}
 <li>Android supplies attachment photos through the system picker. Android and iOS request camera access when you open the QR scanner; iOS also requests it when you choose to take an attachment photo.</li>
 </ul>
 <p>You can revoke camera access at any time in your device settings. Camera-based attachment and label scanning will stop working, but the rest of the app continues to work.</p>
-<h2>Network requests the app makes</h2>
-<p>Jerbventory needs internet access for one purpose: looking up card prices and card images. Those requests go to third parties we do not control:</p>
+<h2>Our pricing service</h2>
+<p>Jerbventory refreshes card prices through a service we operate, hosted on Render. It exists so that the pricing provider's credential never has to be inside the app, and so prices keep working offline at a show once they have been fetched.</p>
+<p><strong>How access works.</strong> Pricing is switched on in one of two ways. Either way, the app generates a random device token and registers it with our service; the token is stored in the app's private storage (in the system keychain on iOS) and is sent with every pricing request. The token is not derived from your phone's hardware identifiers, is not linked to your name or email, and is not used for anything except authorising pricing requests.</p>
+<ul>
+<li><strong>Automatic sign-up</strong> (versions that offer it). Before registering the token, the app asks your phone's platform to confirm that the request comes from the genuine Jerbventory app on a genuine device: <strong>Apple App Attest</strong> on iPhone and iPad, <strong>Google Play Integrity</strong> on Android. Apple or Google produces that confirmation under its own privacy policy, and the app sends it to our service together with the token. Our service checks it on our own server, without contacting Apple or Google, and then <strong>discards it</strong>; the confirmation is not stored and not logged.</li>
+<li><strong>Activation code</strong> (testers). A one-time code we send you, which registers the token.</li>
+</ul>
+<p><strong>Limiting sign-up abuse.</strong> Our service limits how many sign-up attempts can come from one network address in an hour. To do that it turns your IP address into one-way codes (keyed hashes; for IPv6, of the address blocks your address belongs to rather than of the single address), using a random key that changes every day. It keeps those codes only in the service's working memory, never writes them to disk or to a log, and never links them to your device token. Each code is erased when the day ends in UTC, or sooner once it is no longer needed, and always within 24 hours; the day's key is erased with the last code made with it. The IP address itself is not kept at all.</p>
+<p><strong>What is sent.</strong> Each day, or when you ask for a refresh, the app downloads a price guide (a table of catalog identifiers and price tiers) and, for cards the guide does not cover, asks the service for prices by sending the <strong>catalog identifiers of cards you track</strong>. Those identifiers tell our service which card products you follow. They do not include quantities, costs, asking prices, sale records, show data, photos, notes, or anything that identifies you.</p>
+<p><strong>What we keep.</strong></p>
+<ul>
+<li>For each <strong>automatic sign-up</strong>: a device identifier, a hashed copy of the device token (we cannot read the token back), whether the phone is iOS or Android, and the date (not the time) it signed up and was last used. On iPhone and iPad we also keep a hashed copy of the App Attest key identifier, that key's public key and a counter, which let us recognise the same app instance later; they say nothing about you. These records are <strong>deleted automatically after 12 months without use</strong>.</li>
+<li>For each <strong>activation code</strong>: the activation code's identifier, the device identifier, a hashed copy of the device token, the dates it was issued, activated, and, if applicable, revoked, and an optional short label we may have typed when creating the activation code, such as a device nickname.</li>
+<li>A sign-up request that is still in progress holds a random one-time challenge for at most five minutes.</li>
+</ul>
+<p>Our hosting provider also keeps ordinary web-server connection records (IP address, time, and the path requested) under its own retention rules, and keeps automatic backups of the service's storage for a limited period, so a deleted record can remain in those backups until they expire. Our own service logs record only fixed outcome codes, never IP addresses, tokens or sign-up confirmations. We do not keep the lists of identifiers you looked up beyond what is needed to answer the request.</p>
+<p><strong>Deleting it.</strong> Uninstalling the app discards the token. To have your activation record removed from our service, or to have a lost device's token revoked, email us at the address below with the device nickname or the approximate activation date; we will revoke it and confirm. An automatic sign-up record holds no name, label or contact detail, so we usually cannot tell which one is yours; if the app shows you its pricing device identifier, send us that and we will delete the record. Otherwise it is deleted automatically after 12 months without use.</p>
+<p><strong>Provider.</strong> Prices come from PriceCharting and SportsCardsPro under a written arrangement with them, and each price in the app links to the product page it came from. Our service, not your phone, is what talks to PriceCharting; they do not receive anything about you or your device.</p>
+<h2>Other network requests the app makes</h2>
+<p>Some current test builds also contact the following third-party services directly for card prices and card images. We are removing these routes from the public release, so a later version of this policy may no longer list them:</p>
 <table><thead><tr><th>Service</th><th>Purpose</th><th>What is sent</th></tr></thead><tbody>
 <tr><td><code>api.pokemontcg.io</code></td><td>Pokémon card and price lookup</td><td>Card identifiers such as set and card number</td></tr>
 <tr><td><code>digimoncard.io</code> / <code>images.digimoncard.io</code></td><td>Digimon card data and images</td><td>Card identifiers</td></tr>
@@ -105,7 +123,7 @@ color:var(--muted);font-size:.88rem}
 <p>Uninstalling the app deletes its local database and photos.</p>
 <p><strong>This is permanent.</strong> Because we hold no copy, we cannot restore anything for you. Export a backup before uninstalling, switching devices, or resetting a device.</p>
 <h2>Your rights</h2>
-<p>Privacy laws such as the GDPR and CCPA give you rights to access, correct, export, and delete personal data a company holds about you. We hold none, so there is nothing for us to produce or erase. Your data is already entirely in your possession — visible in the app, exportable as a backup, and deletable by uninstalling.</p>
+<p>Privacy laws such as the GDPR and CCPA give you rights to access, correct, export, and delete personal data a company holds about you. Your inventory and financial data are entirely in your possession — visible in the app, exportable as a backup, and deletable by uninstalling. The only records we hold are the pricing-service records described above, which identify a device token rather than you; contact us and we will help with any request about them.</p>
 <h2>Changes to this policy</h2>
 <p>If the app's data handling changes — for example if optional cloud sync, accounts, or crash reporting are ever added — this policy will be updated <strong>before</strong> that version is released, and the change will be described in the release notes. Material changes will be surfaced in the app.</p>
 <h2>Contact</h2>
